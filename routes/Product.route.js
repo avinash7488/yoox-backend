@@ -4,6 +4,16 @@ const { ProductModel } = require("../model/Product.model");
 
 const productRouter= express.Router();
 
+// Insert Many documents in collection
+productRouter.post("/insert",async(req,res)=>{
+    try{
+        await ProductModel.insertMany(req.body);
+        res.send({"msg":"Products have been added successfully"})
+    }catch(err){
+        res.send({"msg":"somthing went wrong! cannot add the products","error":err.message})
+    }
+})
+
 // below code can be used to get all products for Home-Page in user site---------------->
 productRouter.get("/",async(req,res)=>{
     let query= req.query;

@@ -3,7 +3,7 @@ const cors = require("cors");
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const bcrypt= require("bcrypt");
-const {auth} = require("./middleware/auth.middleware");
+const {auth} = require("./middleware/auth.middlewate");
 const {connecion}= require("./config/db")
 const {userRouter} = require("./routes/User.route");
 const {adminRouter} = require("./routes/Admin.route");
@@ -15,6 +15,17 @@ const { UserModel } = require("./model/User.model");
 const app= express();
 app.use(express.json());
 app.use(cors());
+app.use("/users",auth);
+app.use("/users",userRouter);
+app.use("/admin",auth);
+app.use("/admin",adminRouter);
+app.use("/products",productRouter);
+
+
+// Homepage---------------->
+app.get("/",(req,res)=>{
+    res.send("HOME PAGE")
+})
 
 
 
